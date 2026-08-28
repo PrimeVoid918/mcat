@@ -1,5 +1,67 @@
-build/bin
-node_modules
-frontend/dist
+# Go
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
 
-.obsidian_notes
+# Go test / coverage
+*.test
+*.out
+coverage/
+coverage.html
+
+# Wails build output
+build/bin/
+build/linux/
+build/windows/
+build/darwin/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# IDE / editors
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+tmp/
+temp/
+
+# Local database
+*.db
+*.db-shm
+*.db-wal
+
+# Generated/local files
+*.log
+
+# Ent generated code
+/ent/*.go
+/ent/actor/
+/ent/enttest/
+/ent/genre/
+/ent/image/
+/ent/media/
+/ent/mediasource/
+/ent/mutation/
+/ent/predicate/
+/ent/runtime/
+/ent/hook/
+/ent/migrate/
+# /ent/schema/*.go #??
+
+# obisidian notes
+MCat_obsidian_notes
