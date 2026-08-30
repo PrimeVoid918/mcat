@@ -3,17 +3,28 @@ package main
 import (
 	"context"
 	"fmt"
+	actor "mcat/internal/actor"
+	media "mcat/internal/media"
 )
 
 // App struct
 type App struct {
-	ctx context.Context
+	ctx          context.Context
+	mediaService *media.MediaService
+	actorService *actor.ActorService
 }
 
 // NewApp creates a new App application struct
-func NewApp() *App {
-	return &App{}
+func NewApp(mediaService *media.MediaService, actorService *actor.ActorService) *App {
+	return &App{
+		mediaService: mediaService,
+		actorService: actorService,
+	}
 }
+
+// func NewApp() *App {
+// 	return &App{}
+// }
 
 // startup is called when the app starts. The context is saved
 // so we can call the runtime methods
