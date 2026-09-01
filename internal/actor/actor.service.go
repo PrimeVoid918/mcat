@@ -2,12 +2,12 @@ package actor
 
 import "mcat/ent"
 
-type ActorService struct {
+type Service struct {
 	client *ent.Client
 }
 
-func NewService(client *ent.Client) *ActorService {
-	return &ActorService{
+func NewService(client *ent.Client) *Service {
+	return &Service{
 		client: client,
 	}
 }
