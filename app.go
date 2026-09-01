@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	actor "mcat/internal/actor"
+	genre "mcat/internal/genre"
 	media "mcat/internal/media"
 )
 
@@ -12,13 +13,15 @@ type App struct {
 	ctx          context.Context
 	mediaService *media.Service
 	actorService *actor.Service
+	genreService *genre.Service
 }
 
 // NewApp creates a new App application struct
-func NewApp(mediaService *media.Service, actorService *actor.Service) *App {
+func NewApp(mediaService *media.Service, actorService *actor.Service, genreService *genre.Service) *App {
 	return &App{
 		mediaService: mediaService,
 		actorService: actorService,
+		genreService: genreService,
 	}
 }
 

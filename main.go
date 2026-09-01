@@ -10,6 +10,7 @@ import (
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
 
 	actor "mcat/internal/actor"
+	genre "mcat/internal/genre"
 	media "mcat/internal/media"
 )
 
@@ -25,9 +26,10 @@ func main() {
 
 	mediaService := media.NewService(database.Client())
 	actorService := actor.NewService(database.Client())
+	genreService := genre.NewService(database.Client())
 
 	// Create an instance of the app structure
-	app := NewApp(mediaService, actorService)
+	app := NewApp(mediaService, actorService, genreService)
 
 	// Create application with options
 	err = wails.Run(&options.App{

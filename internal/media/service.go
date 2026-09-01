@@ -74,32 +74,32 @@ func (s *Service) Create(
 func (s *Service) Update(
 	ctx context.Context,
 	id string,
-	payload UpdatePayloadInput,
+	input UpdatePayloadInput,
 ) (*ent.Media, error) {
-	if err := ValidateUpdatePayload(payload); err != nil {
+	if err := ValidateUpdatePayload(input); err != nil {
 		return nil, err
 	}
 
 	build := s.client.Media.UpdateOneID(id)
 
-	if payload.Title != nil {
-		build.SetTitle(*payload.Title)
+	if input.Title != nil {
+		build.SetTitle(*input.Title)
 	}
 
-	if payload.Code != nil {
-		build.SetCode(*payload.Code)
+	if input.Code != nil {
+		build.SetCode(*input.Code)
 	}
 
-	if payload.DurationSeconds != nil {
-		build.SetDurationSeconds(*payload.DurationSeconds)
+	if input.DurationSeconds != nil {
+		build.SetDurationSeconds(*input.DurationSeconds)
 	}
 
-	if payload.ReleaseDate != nil {
-		build.SetReleaseDate(*payload.ReleaseDate)
+	if input.ReleaseDate != nil {
+		build.SetReleaseDate(*input.ReleaseDate)
 	}
 
-	if payload.Description != nil {
-		build.SetDescription(*payload.Description)
+	if input.Description != nil {
+		build.SetDescription(*input.Description)
 	}
 
 	return build.Save(ctx)
