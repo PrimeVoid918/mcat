@@ -18,14 +18,14 @@ func (Image) Fields() []ent.Field {
 		field.String("path"),
 		field.String("checksum").Optional(),
 		field.Int("fileSizeBytes").Optional(),
-		field.String("mimeType").Optional(),
+		field.String("mimeType").Optional(), // supposed to be enum
 		field.Int("widthPx").Optional(),
 		field.Int("heightPx").Optional(),
 		field.String("altText").Optional(),
 		field.String("caption").Optional(),
 		field.Time("createdAt"),
 		field.Time("updatedAt").Optional(),
-		field.Enum("display_type").
+		field.Enum("displayType").
 			Values(
 				"PREVIEW",
 				"THUMBNAIL",
