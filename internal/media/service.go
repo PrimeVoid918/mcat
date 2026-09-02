@@ -17,7 +17,9 @@ func NewService(client *ent.Client) *Service {
 	}
 }
 
-func (s *Service) FindAll(ctx context.Context) ([]*ent.Media, error) {
+func (s *Service) FindAll(
+	ctx context.Context,
+) ([]*ent.Media, error) {
 	return s.client.Media.
 		Query().
 		All(ctx)
