@@ -1,3 +1,82 @@
+export namespace actor {
+	
+	export class CreateInput {
+	    Name: string;
+	    // Go type: time
+	    Birthdate?: any;
+	    HeightCm?: number;
+	    Gender: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new CreateInput(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.Name = source["Name"];
+	        this.Birthdate = this.convertValues(source["Birthdate"], null);
+	        this.HeightCm = source["HeightCm"];
+	        this.Gender = source["Gender"];
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+	export class UpdateInput {
+	    Name?: string;
+	    // Go type: time
+	    Birthdate?: any;
+	    HeightCm?: number;
+	    Gender?: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new UpdateInput(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.Name = source["Name"];
+	        this.Birthdate = this.convertValues(source["Birthdate"], null);
+	        this.HeightCm = source["HeightCm"];
+	        this.Gender = source["Gender"];
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+
+}
+
 export namespace ent {
 	
 	export class ImageEdges {
@@ -50,7 +129,7 @@ export namespace ent {
 	    createdAt?: any;
 	    // Go type: time
 	    updatedAt?: any;
-	    display_type?: string;
+	    displayType?: string;
 	    edges: ImageEdges;
 	
 	    static createFrom(source: any = {}) {
@@ -70,7 +149,7 @@ export namespace ent {
 	        this.caption = source["caption"];
 	        this.createdAt = this.convertValues(source["createdAt"], null);
 	        this.updatedAt = this.convertValues(source["updatedAt"], null);
-	        this.display_type = source["display_type"];
+	        this.displayType = source["displayType"];
 	        this.edges = this.convertValues(source["edges"], ImageEdges);
 	    }
 	
@@ -401,6 +480,45 @@ export namespace media {
 	
 	    static createFrom(source: any = {}) {
 	        return new CreateInput(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.Title = source["Title"];
+	        this.Code = source["Code"];
+	        this.DurationSeconds = source["DurationSeconds"];
+	        this.ReleaseDate = this.convertValues(source["ReleaseDate"], null);
+	        this.Description = source["Description"];
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+	export class UpdatePayloadInput {
+	    Title?: string;
+	    Code?: string;
+	    DurationSeconds?: number;
+	    // Go type: time
+	    ReleaseDate?: any;
+	    Description?: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new UpdatePayloadInput(source);
 	    }
 	
 	    constructor(source: any = {}) {
