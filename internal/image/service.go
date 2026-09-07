@@ -18,16 +18,13 @@ func NewService(client *ent.Client) *Service {
 	}
 }
 
-func (s *Service) FindAll(
-	ctx context.Context,
-) ([]*ent.Image, error) {
+func (s *Service) FindAll() ([]*ent.Image, error) {
 	return s.client.Image.
 		Query().
-		All(ctx)
+		All(context.Background())
 }
 
 func (s *Service) FindOneByID(
-	ctx context.Context,
 	id string,
 ) (*ent.Image, error) {
 	validId, err := validator.ValidateString(&id, "id")
@@ -38,11 +35,10 @@ func (s *Service) FindOneByID(
 	return s.client.Image.
 		Query().
 		Where(image.IDEQ(validId)).
-		Only(ctx)
+		Only(context.Background())
 }
 
 func (s *Service) Create(
-	ctx context.Context,
 	input CreateInput,
 ) (*ent.Image, error) {
 	if err := ValidateCreate(input); err != nil {
@@ -80,11 +76,10 @@ func (s *Service) Create(
 	// 	create.SetUpdatedAt(*input.UpdatedAt)
 	// }
 
-	return create.Save(ctx)
+	return create.Save(context.Background())
 }
 
 func (s *Service) Update(
-	ctx context.Context,
 	id string,
 	input UpdateInput,
 ) (*ent.Image, error) {
@@ -129,11 +124,10 @@ func (s *Service) Update(
 		update.SetHeightPx(*input.HeightPx)
 	}
 
-	return update.Save(ctx)
+	return update.Save(context.Background())
 }
 
 func (s *Service) DeleteByID(
-	ctx context.Context,
 	id string,
 ) error {
 	validId, err := validator.ValidateString(&id, "delete id")
@@ -141,5 +135,5 @@ func (s *Service) DeleteByID(
 		return err
 	}
 
-	return s.client.Image.DeleteOneID(validId).Exec(ctx)
+	return s.client.Image.DeleteOneID(validId).Exec(context.Background())
 }

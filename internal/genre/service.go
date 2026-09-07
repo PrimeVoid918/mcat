@@ -17,24 +17,22 @@ func NewService(client *ent.Client) *Service {
 	}
 }
 
-func (s *Service) FindAll(ctx context.Context) ([]*ent.Genre, error) {
+func (s *Service) FindAll() ([]*ent.Genre, error) {
 	return s.client.Genre.
 		Query().
-		All(ctx)
+		All(context.Background())
 }
 
 func (s *Service) FineById(
-	ctx context.Context,
 	id string,
 ) ([]*ent.Genre, error) {
 	return s.client.Genre.
 		Query().
 		Where(genre.IDEQ(id)).
-		All(ctx)
+		All(context.Background())
 }
 
 func (s *Service) Create(
-	ctx context.Context,
 	input CreateInput,
 ) (*ent.Genre, error) {
 	name, err := validator.ValidateRequiredString(input.Name, "genre name")
@@ -44,11 +42,10 @@ func (s *Service) Create(
 
 	create := s.client.Genre.Create().SetName(name)
 
-	return create.Save(ctx)
+	return create.Save(context.Background())
 }
 
 func (s *Service) Update(
-	ctx context.Context,
 	id string,
 	input UpdateInput,
 ) (*ent.Genre, error) {
@@ -58,11 +55,10 @@ func (s *Service) Update(
 
 	update := s.client.Genre.UpdateOneID(id)
 
-	return update.Save(ctx)
+	return update.Save(context.Background())
 }
 
 func (s *Service) DeleteById(
-	ctx context.Context,
 	id string,
 ) error {
 	validId, err := validator.ValidateString(&id, "Genre ID")
@@ -70,5 +66,5 @@ func (s *Service) DeleteById(
 		return err
 	}
 
-	return s.client.Genre.DeleteOneID(validId).Exec(ctx)
+	return s.client.Genre.DeleteOneID(validId).Exec(context.Background())
 }

@@ -17,16 +17,13 @@ func NewService(client *ent.Client) *Service {
 	}
 }
 
-func (s *Service) FindAll(
-	ctx context.Context,
-) ([]*ent.MediaSource, error) {
+func (s *Service) FindAll() ([]*ent.MediaSource, error) {
 	return s.client.MediaSource.
 		Query().
-		All(ctx)
+		All(context.Background())
 }
 
 func (s *Service) FindOneByID(
-	ctx context.Context,
 	id string,
 ) (*ent.MediaSource, error) {
 	validId, err := validator.ValidateString(&id, "id")
@@ -37,11 +34,10 @@ func (s *Service) FindOneByID(
 	return s.client.MediaSource.
 		Query().
 		Where(mediasource.IDEQ(validId)).
-		Only(ctx)
+		Only(context.Background())
 }
 
 func (s *Service) Create(
-	ctx context.Context,
 	input CreateInput,
 ) (*ent.MediaSource, error) {
 	if err := ValidateCreateInput(input); err != nil {
@@ -53,11 +49,11 @@ func (s *Service) Create(
 		SetName(input.Name).
 		SetURL(input.URL)
 
-	return create.Save(ctx)
+	return create.Save(context.Background())
 }
 
 func (s *Service) Update(
-	ctx context.Context,
+
 	id string,
 	input UpdateInput,
 ) (*ent.MediaSource, error) {
@@ -80,11 +76,10 @@ func (s *Service) Update(
 		update.SetURL(*input.URL)
 	}
 
-	return update.Save(ctx)
+	return update.Save(context.Background())
 }
 
 func (s *Service) DeleteByID(
-	ctx context.Context,
 	id string,
 ) error {
 	validID, err := validator.ValidateString(&id, "id")
@@ -92,5 +87,7 @@ func (s *Service) DeleteByID(
 		return err
 	}
 
-	return s.client.MediaSource.DeleteOneID(validID).Exec(ctx)
+	return s.client.MediaSource.
+		DeleteOneID(validID).
+		Exec(context.Background())
 }

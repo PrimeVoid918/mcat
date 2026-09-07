@@ -18,17 +18,15 @@ func NewService(client *ent.Client) *Service {
 }
 
 func (s *Service) FindByID(
-	ctx context.Context,
 	id string,
 ) (*ent.Actor, error) {
 	return s.client.Actor.
 		Query().
 		Where(actor.IDEQ(id)).
-		Only(ctx)
+		Only(context.Background())
 }
 
 func (s *Service) Create(
-	ctx context.Context,
 	input CreateInput,
 ) (*ent.Actor, error) {
 	if err := ValidateCreateInput(input); err != nil {
@@ -48,11 +46,10 @@ func (s *Service) Create(
 		create.SetHeightCm(*input.HeightCm)
 	}
 
-	return create.Save(ctx)
+	return create.Save(context.Background())
 }
 
 func (s *Service) Update(
-	ctx context.Context,
 	id string,
 	input UpdateInput,
 ) (*ent.Actor, error) {
@@ -83,11 +80,10 @@ func (s *Service) Update(
 		update.SetGender(actor.Gender(*input.Gender))
 	}
 
-	return update.Save(ctx)
+	return update.Save(context.Background())
 }
 
 func (s *Service) DeleteByID(
-	ctx context.Context,
 	id string,
 ) error {
 	validId, err := validator.ValidateString(&id, "actor ID")
@@ -96,5 +92,5 @@ func (s *Service) DeleteByID(
 	}
 
 	return s.client.Actor.
-		DeleteOneID(validId).Exec(ctx)
+		DeleteOneID(validId).Exec(context.Background())
 }
