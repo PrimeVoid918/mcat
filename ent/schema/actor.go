@@ -4,6 +4,7 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/schema/edge"
 	"entgo.io/ent/schema/field"
+	"github.com/google/uuid"
 )
 
 // Actor holds the schema definition for the Actor entity.
@@ -14,7 +15,7 @@ type Actor struct {
 // Fields of the Actor.
 func (Actor) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("id").Unique().Immutable(),
+		field.String("id").Unique().Immutable().DefaultFunc(uuid.NewString),
 		field.String("name"),
 		field.Time("birthdate").Optional().Nillable(),
 		field.Float("heightCm").Optional(),

@@ -1,5 +1,5 @@
 import Media from "@/domain/media/Media";
-import { MediaService } from "@/infrastructure/wails/actor";
+import MediaService from "@/infrastructure/wails/media";
 import { makeAutoObservable, runInAction } from "mobx";
 
 export default class MediaStore {

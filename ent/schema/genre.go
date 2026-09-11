@@ -4,6 +4,7 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/schema/edge"
 	"entgo.io/ent/schema/field"
+	"github.com/google/uuid"
 )
 
 // Genre holds the schema definition for the Genre entity.
@@ -14,7 +15,7 @@ type Genre struct {
 // Fields of the Genre.
 func (Genre) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("id").Unique().Immutable(),
+		field.String("id").Unique().Immutable().DefaultFunc(uuid.NewString),
 		field.String("name").Unique(),
 	}
 }

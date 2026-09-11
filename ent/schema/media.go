@@ -4,6 +4,7 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/schema/edge"
 	"entgo.io/ent/schema/field"
+	"github.com/google/uuid"
 )
 
 // Media holds the schema definition for the Media entity.
@@ -14,7 +15,7 @@ type Media struct {
 // Fields of the Media.
 func (Media) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("id").Unique().Immutable(),
+		field.String("id").Unique().Immutable().DefaultFunc(uuid.NewString),
 		field.String("title"),
 		field.String("code").Unique(),
 		field.Int("durationSeconds").Optional(),

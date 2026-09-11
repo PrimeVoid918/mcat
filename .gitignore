@@ -20,6 +20,7 @@ build/darwin/
 # Frontend
 frontend/node_modules/
 frontend/dist/
+frontend/wailsjs/
 
 # Environment
 .env

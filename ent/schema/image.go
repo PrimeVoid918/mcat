@@ -4,6 +4,7 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/schema/edge"
 	"entgo.io/ent/schema/field"
+	"github.com/google/uuid"
 )
 
 // Image holds the schema definition for the Image entity.
@@ -14,7 +15,7 @@ type Image struct {
 // Fields of the Image.
 func (Image) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("id").Unique().Immutable(),
+		field.String("id").Unique().Immutable().DefaultFunc(uuid.NewString),
 		field.String("path"),
 		field.String("checksum").Optional(),
 		field.Int("fileSizeBytes").Optional(),

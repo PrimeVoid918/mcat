@@ -11,7 +11,9 @@ import (
 
 	actor "mcat/internal/actor"
 	genre "mcat/internal/genre"
+	image "mcat/internal/image"
 	media "mcat/internal/media"
+	mediasource "mcat/internal/mediasource"
 )
 
 //go:embed all:frontend/dist
@@ -27,6 +29,8 @@ func main() {
 	mediaService := media.NewService(database.Client())
 	actorService := actor.NewService(database.Client())
 	genreService := genre.NewService(database.Client())
+	imageService := image.NewService(database.Client())
+	mediasourceService := mediasource.NewService(database.Client())
 
 	// Create an instance of the app structure
 	app := NewApp(mediaService, actorService, genreService)
@@ -36,6 +40,9 @@ func main() {
 		Title:  "mcat",
 		Width:  1024,
 		Height: 768,
+		Debug: options.Debug{
+			OpenInspectorOnStartup: true,
+		},
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},
@@ -44,7 +51,10 @@ func main() {
 		Bind: []interface{}{
 			app,
 			mediaService,
+			genreService,
 			actorService,
+			imageService,
+			mediasourceService,
 		},
 	})
 
